@@ -158,7 +158,7 @@ git rm .eslintrc.json
     "@electron-forge/plugin-auto-unpack-natives": "^7.11.2",
     "@electron-forge/plugin-fuses": "^7.11.2",
     "@electron-forge/plugin-vite": "^7.11.2",
-    "@electron/fuses": "^2.1.3",
+    "@electron/fuses": "^1.8.0",
     "@types/electron-squirrel-startup": "^1.0.2",
     "electron": "43.3.0",
     "vite": "^5.4.21"
@@ -2184,7 +2184,19 @@ contextBridge.exposeInMainWorld('flow', {
       ],
 ```
 
-- [ ] **Step 10: 验证启动与快捷键**
+- [ ] **Step 10: 更新 package.json 的 main 字段**
+
+**改 entry 必须同步改 `main`，否则打包会失败。** Vite 产物名跟随 entry 文件名：`src/main/index.ts` 产出 `index.js` 而非 `main.js`。
+
+修改 `pc/apps/desktop/package.json`：
+
+```json
+  "main": ".vite/build/index.js",
+```
+
+不改的话 `npm run make` 会在打包阶段报 `The main entry point to your app was not found`——注意开发期 `npm start` 不受影响，问题只在打包时暴露。
+
+- [ ] **Step 11: 验证启动与快捷键**
 
 ```bash
 cd pc && npm start
@@ -2192,7 +2204,7 @@ cd pc && npm start
 
 Expected: 控制台打印 `[flow] launcher 快捷键已注册：Option+Space`（macOS）。按该组合应能显隐窗口，点击窗口外应自动隐藏。确认后 Ctrl+C 退出。
 
-- [ ] **Step 11: 提交**
+- [ ] **Step 12: 提交**
 
 ```bash
 cd pc

@@ -1,0 +1,59 @@
+:root {
+  --flow-bg: #1e1e1e;
+  --flow-fg: #f0f0f0;
+  --flow-border: #3a3a3a;
+  --flow-row-active: #2d2d2d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--flow-bg);
+  color: var(--flow-fg);
+}
+
+.launcher {
+  display: flex;
+  flex-direction: column;
+  block-size: 100vh;
+}
+
+.launcher__input {
+  inline-size: 100%;
+  padding-block: 16px;
+  padding-inline: 20px;
+  border: none;
+  border-block-end: 1px solid var(--flow-border);
+  background: transparent;
+  color: inherit;
+  font-size: 20px;
+  outline: none;
+}
+
+.launcher__results {
+  flex: 1;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.launcher__row {
+  padding-block: 10px;
+  padding-inline: 20px;
+  cursor: default;
+}
+
+.launcher__row--active {
+  background: var(--flow-row-active);
+}
+
+.launcher__empty {
+  padding-block: 20px;
+  padding-inline: 20px;
+  opacity: 0.6;
+}
